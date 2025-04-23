@@ -1,3 +1,56 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Smooth neon tracer for top and bottom beam */
+.beam-fade {
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, #a855f7, #f472b6, transparent);
+  box-shadow: 0 0 20px #f472b6, 0 0 40px #a855f7;
+  opacity: 1;
+}
+
+.beam-fade.top {
+  top: 0;
+  left: -100%;
+  animation: sweep-top 8s linear infinite;
+}
+
+.beam-fade.bottom {
+  bottom: 0;
+  right: -100%;
+  animation: sweep-bottom 8s linear infinite;
+}
+
+/* Glowing sweep animations */
+@keyframes sweep-top {
+  0% {
+    left: -100%;
+    opacity: 0.8;
+  }
+  50% {
+    left: 0%;
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes sweep-bottom {
+  0% {
+    right: -100%;
+    opacity: 0.8;
+  }
+  50% {
+    right: 0%;
+    opacity: 1;
+  }
+  100% {
+    right: 100%;
+    opacity: 0;
+  }
+}

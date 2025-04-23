@@ -1,22 +1,16 @@
-import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import HeroSection from "./components/HeroSection";
+import ResumePage from "./pages/ResumePage";
 
-function App() {
-  const [message, setMessage] = useState("");
-
-  useEffect(()=>{
-    fetch("http://localhost:5000/api/ping")
-      .then((res)=> res.json())
-      .then((data)=>setMessage(data.message))
-      .catch((err)=>console.log("Backend not responding",err));
-  })
-
+export default function App() {
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <h1 className="text-4xl font-bold text-purple-700">
-        Resume AI Generator ✨
-      </h1>
-      <p className="text-lg text-gray-800">Backend says: {message}</p>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HeroSection />} />
+        <Route path="/resume" element={<ResumePage />} />
+        <Route path="/cover-letter" element={<div className="text-center mt-20 text-3xl">Cover Letter Page (Coming Soon)</div>} />
+        <Route path="/cold-email" element={<div className="text-center mt-20 text-3xl">Cold Email Page (Coming Soon)</div>} />
+      </Routes>
+    </Router>
   );
 }
-export default App;

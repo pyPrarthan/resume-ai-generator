@@ -55,7 +55,7 @@ export default function HeroSection() {
       </div>
 
       <section
-        className={`relative z-20 flex flex-col justify-center items-center px-6 text-center min-h-screen ${
+        className={`relative z-20 flex flex-col justify-center items-center px-6 text-center min-h-screen overflow-hidden transition-opacity duration-1000 ${
           showHero ? "opacity-100 fade-in-hero" : "opacity-0"
         }`}
       >
@@ -68,7 +68,7 @@ export default function HeroSection() {
         {/* Main Content */}
         <div className="z-20 space-y-8 max-w-3xl pt-20 md:pt-0">
           <h1 className="text-5xl md:text-6xl font-extrabold leading-tight text-white">
-            Invisible AI to help you with{" "}
+            Job-ready AI to help you with{" "}
             <span className="text-purple-400 relative after:content-['|'] after:animate-blink after:absolute after:left-full after:ml-1 after:text-white">
               {displayedText}
             </span>

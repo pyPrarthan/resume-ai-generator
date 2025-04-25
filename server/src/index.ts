@@ -17,9 +17,10 @@ app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
 
-app.get('/', (req: Request, res: Response) => {
-    res.send("Welcome to the server!" );
-})
+app.get("/", (req: Request, res: Response) => {
+  res.send("Resume API is up and running 🚀");
+});
+
 
 app.get("/api/ping", (req: Request, res: Response) => {
   res.json({ message: "Server is live 🔥" });

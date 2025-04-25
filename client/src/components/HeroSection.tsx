@@ -43,7 +43,7 @@ export default function HeroSection() {
       {!showHero && (
         <div className="absolute inset-0 z-50 bg-[#0a0c10] flex items-center justify-center fade-out-loader">
           <span className="text-white text-xl opacity-70 animate-pulse">
-            Launching Resume AI...
+            Launching JobChain AI...
           </span>
         </div>
       )}

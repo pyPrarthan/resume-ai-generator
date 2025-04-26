@@ -54,19 +54,10 @@ export default function ResumePage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#0a0c10] overflow-y-auto py-12 px-6">
-      {/* 🌈 Moving Gradient Background */}
-      <div className="absolute inset-0 -z-30 bg-gradient-to-br from-purple-800 via-pink-900 to-purple-800 animate-gradient-move"></div>
-
-      {/* 🎇 Floating glowing blobs */}
-      <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
-        <div className="absolute top-[10%] left-[10%] w-[300px] h-[300px] bg-purple-500/20 blur-[160px] rounded-full animate-float-blobs"></div>
-        <div className="absolute bottom-[10%] right-[10%] w-[400px] h-[400px] bg-pink-500/20 blur-[180px] rounded-full animate-float-blobs animation-delay-500"></div>
-      </div>
-
+    <div className="relative min-h-screen bg-gradient-to-br from-[#0a0c10] via-[#0f172a] to-[#0a0c10] overflow-y-auto py-12 px-6">
       {/* 🧾 Resume Builder Card */}
-      <div className="max-w-3xl mx-auto bg-white/5 backdrop-blur-lg rounded-2xl shadow-2xl border border-purple-500/30 p-10 space-y-8 animate-fadeInSlow">
-        <h1 className="text-4xl font-extrabold text-center text-white animate-float">
+      <div className="max-w-3xl mx-auto bg-white/5 backdrop-blur-lg rounded-2xl shadow-2xl border border-purple-500/30 p-10 space-y-8 animate-flyIn">
+        <h1 className="text-4xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 animate-gradient-x animate-bounceIn">
           Build Your Dream Resume
         </h1>
 
@@ -109,7 +100,7 @@ export default function ResumePage() {
         {/* Submit Button */}
         <button
           onClick={handleSubmit}
-          className="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-pink-500/30"
+          className="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold rounded-xl shadow-lg transition-transform duration-300 transform hover:scale-105 hover:shadow-pink-500/40 active:scale-95"
         >
           {loading ? "Generating..." : "Generate Resume"}
         </button>

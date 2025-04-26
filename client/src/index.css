@@ -2,72 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Smooth Gradient Background */
-@keyframes gradient-move {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-
-.animate-gradient-move {
-  background-size: 400% 400%;
-  animation: gradient-move 18s ease infinite;
-}
-
-/* Floating Glow */
-@keyframes floating-glow {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
-}
-.animate-floating-glow {
-  animation: floating-glow 6s ease-in-out infinite;
-}
-
-/* Fade In Slow */
-@keyframes fadeInSlow {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.animate-fadeInSlow {
-  animation: fadeInSlow 1.5s ease-out forwards;
-}
-
-/* Float effect */
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
-}
-.animate-float {
-  animation: float 4s ease-in-out infinite;
-}
-
-/* Bounce Soft */
-@keyframes bounce-soft {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-.animate-bounce-soft {
-  animation: bounce-soft 1s infinite;
-}
-
-/* Shimmer Pulse */
-@keyframes shimmer-pulse {
-  0% { background-position: -200%; }
-  100% { background-position: 200%; }
-}
-.animate-shimmer-text {
-  background: linear-gradient(
-    90deg,
-    rgba(168, 85, 247, 0.2),
-    rgba(244, 114, 182, 0.7),
-    rgba(168, 85, 247, 0.2)
-  );
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shimmer-pulse 3s linear infinite;
-}
-
-/* Sweep Beam for Hero Section */
+/* ===================================
+    Smooth Neon Beam (Top & Bottom)
+=================================== */
 @keyframes sweep-top {
   0% { left: -100%; opacity: 0.8; }
   50% { left: 0%; opacity: 1; }
@@ -96,43 +33,113 @@
   animation: sweep-bottom 8s linear infinite;
 }
 
+/* ===================================
+    Animated Background Gradient
+=================================== */
 @keyframes gradient-move {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
-
 .animate-gradient-move {
   background-size: 400% 400%;
   animation: gradient-move 18s ease infinite;
 }
 
+/* ===================================
+    Floating Glowing Blobs (fixed)
+=================================== */
 @keyframes float-blobs {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-30px);
-  }
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-25px); }
 }
-
 .animate-float-blobs {
-  animation: float-blobs 8s ease-in-out infinite;
+  animation: float-blobs 7s ease-in-out infinite;
 }
 
-/* (Optional) Add if needed for the bouncing */
-@keyframes bounce-soft {
+/* ===================================
+    Slow Ping Effect (for Blobs)
+=================================== */
+@keyframes ping-slow {
   0%, 100% {
-    transform: translateY(0px);
+    transform: scale(1);
+    opacity: 0.3;
   }
   50% {
-    transform: translateY(-10px);
+    transform: scale(1.2);
+    opacity: 0.6;
   }
 }
+.animate-ping-slow {
+  animation: ping-slow 8s ease-in-out infinite;
+}
 
+/* ===================================
+    Smooth Fade In
+=================================== */
+@keyframes fadeInSlow {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeInSlow {
+  animation: fadeInSlow 1.5s ease-out forwards;
+}
+
+/* ===================================
+    Soft Float (for Titles, Buttons)
+=================================== */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* ===================================
+    Soft Bounce (for Success/Errors)
+=================================== */
+@keyframes bounce-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
 .animate-bounce-soft {
   animation: bounce-soft 1.5s infinite;
 }
+
+/* ===================================
+    Shimmer Pulse Effect for Headings
+=================================== */
+@keyframes shimmer-pulse {
+  0% { background-position: -200%; }
+  100% { background-position: 200%; }
+}
+.animate-shimmer-text {
+  background: linear-gradient(
+    90deg,
+    rgba(168, 85, 247, 0.2),
+    rgba(244, 114, 182, 0.7),
+    rgba(168, 85, 247, 0.2)
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer-pulse 3s linear infinite;
+}
+
+@keyframes gradient-x {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: gradient-x 6s ease infinite;
+}
+

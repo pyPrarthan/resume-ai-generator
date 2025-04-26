@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HeroSection from "./components/HeroSection";
 import ResumePage from "./pages/ResumePage";
+import CoverLetterPage from "./pages/CoverLetterPage";
+import ColdEmailPage from "./pages/ColdEmailPage";
 
 export default function App() {
   return (
@@ -8,8 +10,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HeroSection />} />
         <Route path="/resume" element={<ResumePage />} />
-        <Route path="/cover-letter" element={<div className="text-center mt-20 text-3xl">Cover Letter Page (Coming Soon)</div>} />
-        <Route path="/cold-email" element={<div className="text-center mt-20 text-3xl">Cold Email Page (Coming Soon)</div>} />
+        <Route path="/cover-letter" element={<CoverLetterPage />} />
+        <Route path="/cold-email" element={<ColdEmailPage />} />
       </Routes>
     </Router>
   );

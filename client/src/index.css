@@ -15,6 +15,20 @@
   50% { right: 0%; opacity: 1; }
   100% { right: 100%; opacity: 0; }
 }
+
+@keyframes sweep-left {
+  0% { top: -100%; opacity: 0.8; }
+  50% { top: 0%; opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+@keyframes sweep-right {
+  0% { bottom: -100%; opacity: 0.8; }
+  50% { bottom: 0%; opacity: 1; }
+  100% { bottom: 100%; opacity: 0; }
+}
+
+
 .beam-fade {
   position: absolute;
   height: 2px;
@@ -32,6 +46,26 @@
   right: -100%;
   animation: sweep-bottom 8s linear infinite;
 }
+.beam-fade.left {
+  left: 0;
+  top: -100%;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #a855f7, #f472b6, transparent);
+  box-shadow: 0 0 20px #f472b6, 0 0 40px #a855f7;
+  animation: sweep-left 8s linear infinite;
+}
+
+.beam-fade.right {
+  right: 0;
+  bottom: -100%;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #a855f7, #f472b6, transparent);
+  box-shadow: 0 0 20px #f472b6, 0 0 40px #a855f7;
+  animation: sweep-right 8s linear infinite;
+}
+
 
 /* ===================================
     Animated Background Gradient

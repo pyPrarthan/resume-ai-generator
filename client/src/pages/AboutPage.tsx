@@ -14,6 +14,11 @@ export default function AboutPage() {
       <div className="absolute top-0 left-0 w-28 h-full bg-purple-500/10 blur-3xl" />
       <div className="absolute top-0 right-0 w-28 h-full bg-pink-500/10 blur-3xl" />
 
+      <div className="absolute inset-0 pointer-events-none z-10">
+        <div className="beam-fade left" />
+        <div className="beam-fade right" />
+      </div>
+
       {/* Content */}
       <div
         className={`relative z-10 flex flex-col items-center justify-center text-center px-6 py-24 transition-all duration-1000 ${
@@ -52,7 +57,7 @@ export default function AboutPage() {
           You deserve tools that move fast — just like you.
         </p>
 
-        <div className="mt-20">
+        <div className="mt-10">
           <a
             href="/"
             className="inline-block text-md md:text-lg font-semibold text-gray-400 hover:text-white underline underline-offset-4 transition-all duration-300"

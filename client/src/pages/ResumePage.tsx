@@ -74,6 +74,7 @@ export default function ResumePage() {
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-[#0a0c10] via-[#0f172a] to-[#0a0c10] overflow-y-auto py-12 px-6">
+      
       {/* 🧾 Resume Builder Card */}
       <div className="max-w-3xl mx-auto bg-white/5 backdrop-blur-lg rounded-2xl shadow-2xl border border-purple-500/30 p-10 space-y-8 animate-flyIn">
         <h1 className="text-4xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 animate-gradient-x animate-bounceIn">

@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "react-tsparticles": "^2.12.2",
+    "ts-node-dev": "^2.0.0",
     "tsparticles": "^3.8.1"
   }
 }

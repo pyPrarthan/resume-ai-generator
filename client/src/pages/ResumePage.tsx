@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 export default function ResumePage() {
   const [formData, setFormData] = useState({
@@ -13,6 +15,8 @@ export default function ResumePage() {
   const [loading, setLoading] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
+
+  const resumeRef = useRef<HTMLDivElement>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -50,6 +54,21 @@ export default function ResumePage() {
       setGeneratedResume("Failed to generate resume.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDownloadPDF = async () => {
+    if (resumeRef.current) {
+      const canvas = await html2canvas(resumeRef.current, { scale: 2 });
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "mm", "a4");
+
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      pdf.save("resume.pdf");
     }
   };
 
@@ -123,15 +142,31 @@ export default function ResumePage() {
           </div>
         )}
 
-        {/* Output Resume */}
+        {/* Output Resume + Download Button */}
         {generatedResume && (
-          <div className="mt-10 bg-white/10 rounded-lg p-6 text-white border border-purple-400/30 shadow-lg animate-fadeInSlow">
-            <h2 className="text-2xl font-bold mb-4 text-purple-300 text-center">
-              Your Generated Resume
-            </h2>
-            <p className="whitespace-pre-line text-gray-300">
-              {generatedResume}
-            </p>
+          <div className="mt-10 space-y-6">
+            {/* Resume Content */}
+            <div
+              ref={resumeRef}
+              className="bg-white/10 rounded-lg p-6 text-white border border-purple-400/30 shadow-lg animate-fadeInSlow"
+            >
+              <h2 className="text-2xl font-bold mb-4 text-purple-300 text-center">
+                Your Generated Resume
+              </h2>
+              <p className="whitespace-pre-line text-gray-300">
+                {generatedResume}
+              </p>
+            </div>
+
+            {/* Download Button */}
+            <div className="flex justify-center">
+              <button
+                onClick={handleDownloadPDF}
+                className="py-3 px-6 bg-gradient-to-r from-green-500 to-emerald-400 text-white font-bold rounded-xl shadow-lg transition-transform duration-300 transform hover:scale-105 hover:shadow-emerald-500/40 active:scale-95"
+              >
+                Download PDF
+              </button>
+            </div>
           </div>
         )}
       </div>

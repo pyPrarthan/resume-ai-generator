@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 export default function CoverLetterPage() {
   const [formData, setFormData] = useState({
@@ -11,6 +13,9 @@ export default function CoverLetterPage() {
 
   const [generatedCoverLetter, setGeneratedCoverLetter] = useState("");
   const [loading, setLoading] = useState(false);
+
+  // 📄 Reference to the generated letter
+  const coverLetterRef = useRef<HTMLDivElement>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -36,6 +41,27 @@ export default function CoverLetterPage() {
     } finally {
       setLoading(false);
     }
+  };
+
+  // 🖨️ Download as PDF
+  const handleDownloadPDF = async () => {
+    if (!coverLetterRef.current) return;
+
+    const canvas = await html2canvas(coverLetterRef.current, {
+      scale: 2,
+      backgroundColor: "#0d0c1d",
+    });
+    const imgData = canvas.toDataURL("image/png");
+    const pdf = new jsPDF("p", "mm", "a4");
+
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    const imgProps = (pdf as any).getImageProperties(imgData);
+    const imgWidth = pageWidth;
+    const imgHeight = (imgProps.height * imgWidth) / imgProps.width;
+
+    pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+    pdf.save("cover-letter.pdf");
   };
 
   return (
@@ -88,14 +114,31 @@ export default function CoverLetterPage() {
         </button>
 
         {generatedCoverLetter && (
-          <div className="mt-10 bg-white/10 p-6 rounded-lg text-white border border-purple-300/20 animate-fadeInSlow">
-            <h2 className="text-2xl font-bold text-purple-300 mb-4 text-center">
-              Your Cover Letter
-            </h2>
-            <p className="whitespace-pre-line text-gray-300">
-              {generatedCoverLetter}
-            </p>
-          </div>
+          <>
+            <div
+              ref={coverLetterRef}
+              className="mt-10 bg-white/10 p-6 rounded-lg text-white border border-purple-300/20 animate-fadeInSlow"
+            >
+              <h2 className="text-2xl font-bold text-purple-300 mb-4 text-center">
+                Your Cover Letter
+              </h2>
+              <p className="whitespace-pre-line text-gray-300">
+                {generatedCoverLetter}
+              </p>
+            </div>
+
+            {/* Download PDF Button */}
+            <div
+              className="flex justify-center"
+            >
+              <button
+                onClick={handleDownloadPDF}
+                className="py-3 px-6 bg-gradient-to-r from-green-500 to-emerald-400 text-white font-bold rounded-xl shadow-lg transition-transform duration-300 transform hover:scale-105 hover:shadow-emerald-500/40 active:scale-95"
+              >
+                Download as PDF
+              </button>
+            </div>
+          </>
         )}
       </div>
     </div>

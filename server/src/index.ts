@@ -8,6 +8,8 @@ dotenv.config({ path: path.join(process.cwd(), ".env") });
 
 
 import resumeRoute from "./resumeRoute";
+import coverLetterRoute from "./coverLetterRoutes";
+import coldEmailRoute from "./coldEmailRoutes";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -24,6 +26,8 @@ app.get("/api/ping", (req: Request, res: Response) => {
 });
 
 app.use("/api", resumeRoute);
+app.use("/api", coverLetterRoute);
+app.use("/api", coldEmailRoute);
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

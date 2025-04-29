@@ -15,6 +15,7 @@ export default function ResumePage() {
   const [loading, setLoading] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
+  
 
   const resumeRef = useRef<HTMLDivElement>(null);
 

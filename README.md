@@ -46,7 +46,7 @@ Writing fresh resumes, cover letters, and emails for every opportunity shouldn't
 
 ```bash
 # 1. Clone this repository
-git clone https://github.com/pyPrarthan/JobChain-AI.git
+git clone https://github.com/pyPrarthan/resume-ai-generator.git
 
 # 2. Install client & server dependencies
 cd JobChain-AI/client

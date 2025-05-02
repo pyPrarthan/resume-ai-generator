@@ -65,34 +65,49 @@ router.get(
     });
 
     try {
-      const completion = await openai.chat.completions.create({
+      const response = await openai.chat.completions.create({
         messages: [
           { role: "user", content: "Say Hello from Resume AI Project!" },
         ],
         model: "gpt-3.5-turbo",
+        stream: false,
       });
 
-      const responseText = completion.choices[0].message.content;
-      res.json({ message: responseText });
+      const responseText = response.choices[0].message.content;
+
+      // 🧾 Log relevant headers if available (workaround since OpenAI SDK doesn't expose raw headers)
+      console.log("✅ OpenAI Response ID:", response.id);
+      console.log("🧠 Model:", response.model);
+      console.log(
+        "🕒 Created:",
+        new Date(response.created * 1000).toISOString()
+      );
+
+      res.json({
+        message: responseText,
+        requestId: response.id,
+        model: response.model,
+        created: response.created,
+      });
     } catch (error: any) {
       if (error?.status === 429) {
+        console.log("❌ Rate limit exceeded.");
         console.log(
-          "⚡ Rate limit exceeded during test. Please slow down and try again later."
+          "📛 Request ID:",
+          error?.headers?.["x-request-id"] || "N/A"
         );
-        res
-          .status(429)
-          .json({
-            error: "Rate limit exceeded. Please try again after a few minutes.",
-          });
+
+        res.status(429).json({
+          error: "Rate limit exceeded. Please try again after a few minutes.",
+          requestId: error?.headers?.["x-request-id"] || "N/A", 
+        });
       } else {
-        console.log(
-          "⚡ Unexpected OpenAI Test Error:",
-          error?.message || error
-        );
+        console.error("⚡ Unexpected OpenAI Error:", error?.message || error);
         res.status(500).json({ error: "Something went wrong during test." });
       }
     }
   })
 );
+
 
 export default router;

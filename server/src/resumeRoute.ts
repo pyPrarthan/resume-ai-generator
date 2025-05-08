@@ -18,6 +18,8 @@ router.post(
     const openai = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY,
     });
+console.log("✅ Using API Key:", process.env.OPENAI_API_KEY?.slice(0, 8) + "..." + process.env.OPENAI_API_KEY?.slice(-4));
+
 
     try {
       const prompt = `Create a professional resume for the following individual:
@@ -63,6 +65,12 @@ router.get(
     const openai = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY,
     });
+
+    console.log(
+      "✅ Using API Key:",
+      process.env.OPENAI_API_KEY
+    );
+
 
     try {
       const response = await openai.chat.completions.create({

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title><%= name %> - Resume</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 40px;
+      color: #333;
+      line-height: 1.6;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .header h1 {
+      font-size: 36px;
+      margin: 0;
+    }
+    .header h2 {
+      font-size: 20px;
+      margin: 5px 0 0 0;
+      color: #555;
+    }
+    .section {
+      margin-top: 30px;
+    }
+    .section-title {
+      font-size: 20px;
+      border-bottom: 2px solid #2c3e50;
+      padding-bottom: 5px;
+      margin-bottom: 15px;
+      color: #2c3e50;
+    }
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .skill {
+      background-color: #ecf0f1;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    .experience-item, .education-item {
+      margin-bottom: 15px;
+    }
+    .summary {
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1><%= name %></h1>
+    <h2><%= title %></h2>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Professional Summary</div>
+    <p class="summary"><%= summary %></p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Skills</div>
+    <div class="skills">
+      <% skills.forEach(skill => { %>
+        <div class="skill"><%= skill %></div>
+      <% }) %>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Experience</div>
+    <% experience.forEach(item => { %>
+      <div class="experience-item">
+        <p><%= item %></p>
+      </div>
+    <% }) %>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Education</div>
+    <div class="education-item">
+      <p><%= education %></p>
+    </div>
+  </div>
+</body>
+</html>

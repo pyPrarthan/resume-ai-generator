@@ -9,9 +9,6 @@ console.log("🌍 .env file loaded from:", path.join(process.cwd(), ".env"));
 console.log("✅ Using API Key:", process.env.OPENAI_API_KEY?.slice(0, 8) + "..." + process.env.OPENAI_API_KEY?.slice(-4));
 
 
-
-
-
 import resumeRoute from "./resumeRoute";
 import coverLetterRoute from "./coverLetterRoutes";
 import coldEmailRoute from "./coldEmailRoutes";

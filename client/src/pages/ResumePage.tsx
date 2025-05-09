@@ -25,14 +25,17 @@ export default function ResumePage() {
     setShowError(false);
 
     try {
-      const response = await fetch("http://localhost:5000/api/generate-resume", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...formData,
-          skills: formData.skills.split(",").map((s) => s.trim()),
-        }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/generate-resume`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...formData,
+            skills: formData.skills.split(",").map((s) => s.trim()),
+          }),
+        }
+      );
 
       if (!response.ok) throw new Error("API call failed");
 

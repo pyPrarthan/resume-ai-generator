@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title><%= name %> - Cover Letter</title>
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      margin: 50px;
+      color: #333;
+      line-height: 1.6;
+    }
+    .header {
+      margin-bottom: 30px;
+    }
+    .header p {
+      margin: 0;
+    }
+    .date {
+      margin-bottom: 20px;
+    }
+    .recipient {
+      margin-bottom: 20px;
+    }
+    .salutation,
+    .closing {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <p><strong><%= name %></strong></p>
+  </div>
+
+  <div class="date">
+    <p><%= date %></p>
+  </div>
+
+  <div class="recipient">
+    <p><strong>Hiring Manager</strong></p>
+    <p><%= companyName %></p>
+  </div>
+
+  <div class="salutation">
+    <p>Dear Hiring Manager,</p>
+  </div>
+
+  <div class="body">
+    <p>
+      I am writing to express my interest in the <strong><%= jobTitle %></strong> position at <strong><%= companyName %></strong>. With a strong background in <%= skills %>, I am confident in my ability to contribute significantly to your team.
+    </p>
+
+    <p>
+      Throughout my career, I have achieved the following:
+    </p>
+    <ul>
+      <% achievements.forEach(function(achievement) { %>
+        <li><%= achievement %></li>
+      <% }); %>
+    </ul>
+
+    <p>
+      I am particularly impressed by <%= companyName %>'s commitment to innovation and excellence. I believe my experience and passion align well with your company's values and objectives.
+    </p>
+
+    <p>
+      I would welcome the opportunity to discuss how my skills and experiences can benefit <%= companyName %>. Thank you for considering my application.
+    </p>
+  </div>
+
+  <div class="closing">
+    <p>Sincerely,</p>
+    <p style="margin-top: 0;"><%= name %></p>
+  </div>
+</body>
+</html>

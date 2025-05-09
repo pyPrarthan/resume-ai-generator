@@ -26,7 +26,7 @@ export default function ResumePage() {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/api/generate-resume`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/generate-resume`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

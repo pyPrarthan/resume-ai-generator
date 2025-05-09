@@ -122,12 +122,6 @@ router.get(
       apiKey: process.env.OPENAI_API_KEY,
     });
 
-    console.log(
-      "✅ Using API Key:",
-      process.env.OPENAI_API_KEY
-    );
-
-
     try {
       const response = await openai.chat.completions.create({
         messages: [

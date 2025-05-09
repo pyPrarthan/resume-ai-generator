@@ -29,7 +29,7 @@ const handleSubmit = async () => {
 
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_API_BASE_URL}/api/generate-coverletter`,
+      `${process.env.REACT_APP_API_BASE_URL}/api/generate-coverletter`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

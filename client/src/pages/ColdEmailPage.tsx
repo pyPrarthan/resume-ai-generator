@@ -21,11 +21,14 @@ export default function ColdEmailPage() {
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/generate-coldemail`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/api/generate-coldemail`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
       const data = await response.json();
       setGeneratedEmail(data.email || "Something went wrong.");
     } catch (err) {

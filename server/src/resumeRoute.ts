@@ -1,14 +1,12 @@
 import express, { Request, Response } from "express";
 import { OpenAI } from "openai";
 import asyncHandler from "express-async-handler";
-
 import ejs from "ejs";
 import path from "path";
 import chromium from "chrome-aws-lambda";
 
 const router = express.Router();
 
-// ➡️ Generate Resume API
 router.post(
   "/generate-resume",
   asyncHandler(async (req: Request, res: Response) => {
@@ -26,13 +24,8 @@ router.post(
     }
 
     const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-    console.log(
-      "✅ Using API Key:",
-      process.env.OPENAI_API_KEY?.slice(0, 8) + "..."
-    );
 
-    try {
-      const prompt = `
+    const prompt = `
 Please generate a professional resume with the following structure and clearly labeled sections:
 
 **Professional Summary:** (Write 1–2 concise, impactful lines)
@@ -49,71 +42,65 @@ Skills: ${rawSkills.join(", ")}
 Experience: ${rawExperience}
 Education: ${education}`;
 
-      const completion = await openai.chat.completions.create({
-        messages: [{ role: "user", content: prompt }],
-        model: "gpt-3.5-turbo",
-      });
+    const completion = await openai.chat.completions.create({
+      messages: [{ role: "user", content: prompt }],
+      model: "gpt-3.5-turbo",
+    });
 
-      const responseText = completion.choices[0].message.content || "";
+    const responseText = completion.choices[0].message.content || "";
 
-      const getSection = (label: string) => {
-        const regex = new RegExp(
-          `\\*\\*${label}:\\*\\*([\\s\\S]*?)(?=\\*\\*|$)`,
-          "i"
-        );
-        const match = responseText.match(regex);
-        return match ? match[1].trim() : "";
-      };
-
-      const summary = getSection("Professional Summary");
-      const skillsText = getSection("Skills");
-      const experienceText = getSection("Experience");
-      const parsedEducation = getSection("Education");
-
-      const parsedSkills = skillsText.split(/,\s*/);
-      const parsedExperience = experienceText
-        .split("\n")
-        .map((line) => line.trim())
-        .filter((line) => line.startsWith("-"))
-        .map((line) => line.replace(/^- /, ""));
-
-      const html = await ejs.renderFile(
-        path.join(__dirname, "../templates/resume-template.ejs"),
-        {
-          name,
-          title,
-          summary,
-          skills: parsedSkills,
-          experience: parsedExperience,
-          education: parsedEducation,
-        }
+    const getSection = (label: string) => {
+      const regex = new RegExp(
+        `\\*\\*${label}:\\*\\*([\\s\\S]*?)(?=\\*\\*|$)`,
+        "i"
       );
+      const match = responseText.match(regex);
+      return match ? match[1].trim() : "";
+    };
 
-      const browser = await chromium.puppeteer.launch({
-        args: chromium.args,
-        defaultViewport: chromium.defaultViewport,
-        executablePath: await chromium.executablePath,
-        headless: chromium.headless,
-      });
+    const summary = getSection("Professional Summary");
+    const skillsText = getSection("Skills");
+    const experienceText = getSection("Experience");
+    const parsedEducation = getSection("Education");
 
-      const page = await browser.newPage();
-      await page.setContent(html, { waitUntil: "networkidle0" });
+    const parsedSkills = skillsText.split(/,\s*/);
+    const parsedExperience = experienceText
+      .split("\n")
+      .map((line) => line.trim())
+      .filter((line) => line.startsWith("-"))
+      .map((line) => line.replace(/^- /, ""));
 
-      const pdfBuffer = await page.pdf({ format: "A4", printBackground: true });
-      await browser.close();
+    const html = await ejs.renderFile(
+      path.join(__dirname, "../templates/resume-template.ejs"),
+      {
+        name,
+        title,
+        summary,
+        skills: parsedSkills,
+        experience: parsedExperience,
+        education: parsedEducation,
+      }
+    );
 
-      res.setHeader("Content-Type", "application/pdf");
-      res.setHeader(
-        "Content-Disposition",
-        `attachment; filename=${name}_Resume.pdf`
-      );
-      res.send(pdfBuffer);
-    } catch (error: any) {
-      console.error("⚡ Unexpected OpenAI Error:", error?.message || error);
-      res
-        .status(500)
-        .json({ error: "Something went wrong. Please try again." });
-    }
+    const browser = await chromium.puppeteer.launch({
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath,
+      headless: chromium.headless,
+    });
+
+    const page = await browser.newPage();
+    await page.setContent(html, { waitUntil: "networkidle0" });
+
+    const pdfBuffer = await page.pdf({ format: "a4", printBackground: true });
+    await browser.close();
+
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename=${name}_Resume.pdf`
+    );
+    res.send(pdfBuffer);
   })
 );
 

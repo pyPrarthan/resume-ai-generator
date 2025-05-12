@@ -3,7 +3,6 @@ import { OpenAI } from "openai";
 import asyncHandler from "express-async-handler";
 import ejs from "ejs";
 import path from "path";
-import chromium from "chrome-aws-lambda";
 import puppeteer from "puppeteer"; // ✅ use full puppeteer now
 
 

@@ -80,9 +80,11 @@ Sign off with the candidate’s name.`;
     const browser = await puppeteer.launch({
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath,
+      executablePath:
+        (await chromium.executablePath) || "/usr/bin/chromium-browser",
       headless: chromium.headless,
     });
+    
 
     const page = await browser.newPage();
     await page.setContent(html, { waitUntil: "networkidle0" });

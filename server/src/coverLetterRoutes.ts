@@ -4,6 +4,8 @@ import asyncHandler from "express-async-handler";
 import ejs from "ejs";
 import path from "path";
 import chromium from "chrome-aws-lambda";
+import puppeteer from "puppeteer-core"; // 🔁 Add this at the top
+
 
 const router = express.Router();
 
@@ -75,7 +77,7 @@ Sign off with the candidate’s name.`;
       }
     );
 
-    const browser = await chromium.puppeteer.launch({
+    const browser = await puppeteer.launch({
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
       executablePath: await chromium.executablePath,

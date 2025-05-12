@@ -4,7 +4,7 @@ import asyncHandler from "express-async-handler";
 import ejs from "ejs";
 import path from "path";
 import chromium from "chrome-aws-lambda";
-import puppeteer from "puppeteer-core";
+import puppeteer from "puppeteer"; // ✅ use full puppeteer now
 
 
 const router = express.Router();
@@ -85,11 +85,10 @@ Education: ${education}`;
     );
 
     const browser = await puppeteer.launch({
-      args: chromium.args,
-      defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath, // ✅ DON'T use fallback like "/usr/bin/..."
-      headless: chromium.headless,
+      headless: true,
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
+    
     
 
     const page = await browser.newPage();

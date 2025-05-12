@@ -79,9 +79,9 @@ Sign off with the candidate’s name.`;
 
     const browser = await puppeteer.launch({
       args: chromium.args,
-      executablePath: await chromium.executablePath,
-      headless: chromium.headless,
       defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath, // ✅ DON'T use fallback like "/usr/bin/..."
+      headless: chromium.headless,
     });
     
 

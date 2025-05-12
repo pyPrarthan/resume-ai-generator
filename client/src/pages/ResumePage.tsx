@@ -24,9 +24,12 @@ export default function ResumePage() {
     setShowSuccess(false);
     setShowError(false);
 
+    console.log("🌐 API BASE URL:", process.env.REACT_APP_API_BASE_URL); // 👈 Add this line here
+
     try {
       const response = await fetch(
-        `https://resume-ai-generator.onrender.com/api/generate-resume`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/generate-resume`,
+
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

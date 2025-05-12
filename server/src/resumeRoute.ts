@@ -4,7 +4,7 @@ import asyncHandler from "express-async-handler";
 
 import ejs from "ejs";
 import path from "path";
-import puppeteer from "puppeteer";
+import chromium from "chrome-aws-lambda";
 
 const router = express.Router();
 
@@ -70,7 +70,6 @@ Education: ${education}`;
       const experienceText = getSection("Experience");
       const parsedEducation = getSection("Education");
 
-      // Parse as arrays
       const parsedSkills = skillsText.split(/,\s*/);
       const parsedExperience = experienceText
         .split("\n")
@@ -90,7 +89,13 @@ Education: ${education}`;
         }
       );
 
-      const browser = await puppeteer.launch({ headless: "new" as any });
+      const browser = await chromium.puppeteer.launch({
+        args: chromium.args,
+        defaultViewport: chromium.defaultViewport,
+        executablePath: await chromium.executablePath,
+        headless: chromium.headless,
+      });
+
       const page = await browser.newPage();
       await page.setContent(html, { waitUntil: "networkidle0" });
 
@@ -112,15 +117,11 @@ Education: ${education}`;
   })
 );
 
-
-
 // ➡️ Test OpenAI API Key Route
 router.get(
   "/test-openai",
   asyncHandler(async (req: Request, res: Response) => {
-    const openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY,
-    });
+    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
     try {
       const response = await openai.chat.completions.create({
@@ -133,7 +134,6 @@ router.get(
 
       const responseText = response.choices[0].message.content;
 
-      // 🧾 Log relevant headers if available (workaround since OpenAI SDK doesn't expose raw headers)
       console.log("✅ OpenAI Response ID:", response.id);
       console.log("🧠 Model:", response.model);
       console.log(
@@ -157,7 +157,7 @@ router.get(
 
         res.status(429).json({
           error: "Rate limit exceeded. Please try again after a few minutes.",
-          requestId: error?.headers?.["x-request-id"] || "N/A", 
+          requestId: error?.headers?.["x-request-id"] || "N/A",
         });
       } else {
         console.error("⚡ Unexpected OpenAI Error:", error?.message || error);
@@ -166,6 +166,5 @@ router.get(
     }
   })
 );
-
 
 export default router;

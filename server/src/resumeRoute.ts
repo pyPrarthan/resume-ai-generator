@@ -3,7 +3,10 @@ import { OpenAI } from "openai";
 import asyncHandler from "express-async-handler";
 import ejs from "ejs";
 import path from "path";
-import puppeteer from "puppeteer"; // ✅ use full puppeteer now
+//import puppeteer from "puppeteer"; // ✅ use full puppeteer now
+
+import puppeteer from "puppeteer-core";
+import chromium from "chrome-aws-lambda";
 
 
 const router = express.Router();
@@ -84,8 +87,10 @@ Education: ${education}`;
     );
 
     const browser = await puppeteer.launch({
-      headless: true,
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath,
+      headless: chromium.headless,
     });
     
     
